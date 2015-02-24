@@ -20,3 +20,19 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+
+if [ $(id -u) -eq 0 ]
+then
+	export PS1="[1;31m\u[m@[1;32m\h[m: \w\n\\$ "
+else
+	export PS1="\u@[1;32m\h[m: \w\`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'\`\n\\$ "
+fi
+
+alias c="clear"
+alias l="ls -lah --group-directories-first"
+alias t="tmux -2 attach"
+alias e="exit"
+alias v="vim"
+alias jb="ssh jumao@juicebox.restek.wwu.edu"
+alias tmux="tmux -2"

@@ -1,0 +1,10 @@
+selectp -t 0                                              # select the first (0) pane
+splitw -h -p 35        # split it into two [65%,35%]
+
+selectp -t 1                                              # select the new, second (1) pane
+splitw -v -p 25
+selectp -t 1
+splitw -v -p 85 'ssh jumao@juicebox.restek.wwu.edu'
+selectp -t 0                                              # go back to the first pane
+send-keys -t 3 "python" C-m #"cd ~/django; workon django; python manage.py shell" C-m
+send-keys -t 1 "tmux clock-mode -t 1" C-m
