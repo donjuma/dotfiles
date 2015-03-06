@@ -67,3 +67,6 @@ autocmd VimLeavePre * call system("tmux rename-window bash")
 
 set pastetoggle=<F2>
 set t_ut=
+execute pathogen#infect()
+let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
