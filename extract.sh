@@ -23,6 +23,9 @@ do_install() {
         done
     done
 
+    source ~/.bashrc
+    source ~/.bash_profile
+    source ~/.profile
     #cp $INTERNAL_VERSION_FILE $VERSION_FILE
 }
 
