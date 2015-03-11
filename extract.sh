@@ -19,13 +19,10 @@ do_install() {
 
     for pkg in `ls $PKG_PATH`; do
         for file in `ls $PKG_PATH/$pkg`; do
-            ln -is $PKG_PATH/$pkg/$file ~/.$file
+            ln -bis $PKG_PATH/$pkg/$file ~/.$file
         done
     done
 
-    source ~/.bashrc
-    source ~/.bash_profile
-    source ~/.profile
     #cp $INTERNAL_VERSION_FILE $VERSION_FILE
 }
 

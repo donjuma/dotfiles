@@ -38,6 +38,7 @@ source ~/.vim/scripts/closetag.vim
 let b:unaryTagsStack=""
 inoremap <F9> <C-R>=GetCloseTag()<CR>
 
+nnoremap <F4> :GundoToggle<CR>
 nmap <F5> :set invnumber <CR>
 nmap <F6> :set nowrap! <CR>
 
@@ -65,7 +66,14 @@ autocmd BufWritePre *.py :! touch ~/django/wwu_housing/wsgi.py
 autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window " . expand("%"))
 autocmd VimLeavePre * call system("tmux rename-window bash")
 
+
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <Esc>:update<CR>
+
 set pastetoggle=<F2>
+
+" Helps with transparent background terminals...
 set t_ut=
 execute pathogen#infect()
 let g:slime_target = "tmux"

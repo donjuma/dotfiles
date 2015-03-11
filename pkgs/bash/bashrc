@@ -103,3 +103,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 TERM=xterm-256color; export TERM
+
+#Prevent terminal/tty from disruptions caused by Ctrl-S and Ctrl-Q
+stty -ixon
