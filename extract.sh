@@ -19,7 +19,7 @@ do_install() {
 
     for pkg in `ls $PKG_PATH`; do
         for file in `ls $PKG_PATH/$pkg`; do
-            ln -bis $PKG_PATH/$pkg/$file ~/.$file
+            ln -is $PKG_PATH/$pkg/$file ~/.$file
         done
     done
 
