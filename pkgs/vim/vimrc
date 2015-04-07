@@ -35,18 +35,21 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-
+set t_Co=256
 syntax on
 set background=dark
 colors molokai
+let g:airline_powerline_fonts = 1
 autocmd! bufwritepost .vimrc source %
 source ~/.vim/scripts/closetag.vim
 let b:unaryTagsStack=""
 inoremap <F9> <C-R>=GetCloseTag()<CR>
 
+map <F3> ggVGg?
 nnoremap <F4> :GundoToggle<CR>
 nmap <F5> :set invnumber <CR>
 nmap <F6> :set nowrap! <CR>
+nmap <F7> :TagbarToggle<CR>
 
 set pastetoggle=<F8>
 "set wildmode=list:longest
@@ -60,7 +63,7 @@ if &term == "screen"
   set t_ts=^[k
   set t_fs=^[\
 endif
-if &term == "screen" || &term == "xterm"
+if &term == "screen" || &term == "xterm" || &term == "xterm-256color"
   set title
 endif
 
@@ -81,6 +84,17 @@ set pastetoggle=<F2>
 
 " Helps with transparent background terminals...
 set t_ut=
+
 execute pathogen#infect()
 let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
+
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+set shortmess=a
+set cmdheight=1
+set laststatus=2
+set noshowmode

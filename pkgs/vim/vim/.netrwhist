@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/jumao/.tmux'
 let g:netrw_dirhist_2='/home/jumao/bin/tmux-vim'
 let g:netrw_dirhist_3='/home/jumao/.vim'
 let g:netrw_dirhist_4='/home/jumao/django/wwu_housing/bits'
 let g:netrw_dirhist_5='/home/jumao/django/workbook/.git'
 let g:netrw_dirhist_6='/usr/local/etc'
+let g:netrw_dirhist_7='/home/jumao/repos/puppet/modules/hosts'

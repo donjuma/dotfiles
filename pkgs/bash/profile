@@ -30,7 +30,7 @@ else
 fi
 
 alias c="clear"
-alias l="ls -lah --group-directories-first"
+alias l="ls -lah --group-directories-first --color"
 alias t="tmux -2 attach"
 alias e="exit"
 alias v="vim"
