@@ -26,7 +26,8 @@ if [ $(id -u) -eq 0 ]
 then
 	export PS1="[1;31m\u[m@[1;32m\h[m: \w\n\\$ "
 else
-	export PS1="\u@[1;32m\h[m: \w\`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'\`\n\\$ "
+	#export PS1="\u@[1;32m\h[m: \w\`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'\`\n\\$ "
+    export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\[$(tput setaf 7)\]: \w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\[$(tput setaf 5)\]\`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'\`\[$(tput setaf 7)\]\[$(tput sgr0)\]\n\\$ \[$(tput sgr0)\]"
 fi
 
 alias c="clear"
