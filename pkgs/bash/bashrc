@@ -103,6 +103,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 TERM=screen-256color; export TERM
+EDITOR=vim; export EDITOR
 
 #Prevent terminal/tty from disruptions caused by Ctrl-S and Ctrl-Q
 stty -ixon
