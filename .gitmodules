@@ -1,0 +1,33 @@
+[submodule "pkgs/vim/vim/bundle/gundo.vim"]
+	path = pkgs/vim/vim/bundle/gundo.vim
+	url = https://github.com/sjl/gundo.vim.git
+[submodule "pkgs/vim/vim/bundle/.syntastic"]
+	path = pkgs/vim/vim/bundle/.syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "pkgs/vim/vim/bundle/promptline.vim"]
+	path = pkgs/vim/vim/bundle/promptline.vim
+	url = https://github.com/edkolev/promptline.vim.git
+[submodule "pkgs/vim/vim/bundle/snipmate.vim"]
+	path = pkgs/vim/vim/bundle/snipmate.vim
+	url = https://github.com/garbas/vim-snipmate.git
+[submodule "pkgs/vim/vim/bundle/vim-slime"]
+	path = pkgs/vim/vim/bundle/vim-slime
+	url = https://github.com/jpalardy/vim-slime.git
+[submodule "pkgs/vim/vim/bundle/tagbar"]
+	path = pkgs/vim/vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
+[submodule "pkgs/vim/vim/bundle/vim-airline"]
+	path = pkgs/vim/vim/bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
+[submodule "pkgs/vim/vim/bundle/nerdcommenter"]
+	path = pkgs/vim/vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "pkgs/vim/vim/bundle/tlib_vim"]
+	path = pkgs/vim/vim/bundle/tlib_vim
+	url = https://github.com/tomtom/tlib_vim.git
+[submodule "pkgs/vim/vim/bundle/vim-addon-mw-utils"]
+	path = pkgs/vim/vim/bundle/vim-addon-mw-utils
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "pkgs/vim/vim/bundle/rainbow_parentheses"]
+	path = pkgs/vim/vim/bundle/rainbow_parentheses
+	url = https://github.com/kien/rainbow_parentheses.vim.git
