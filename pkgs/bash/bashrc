@@ -107,3 +107,4 @@ EDITOR=vim; export EDITOR
 
 #Prevent terminal/tty from disruptions caused by Ctrl-S and Ctrl-Q
 stty -ixon
+#. ~/temp/punishment.sh
