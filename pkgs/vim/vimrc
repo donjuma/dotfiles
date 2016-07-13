@@ -71,9 +71,8 @@ endif
 cmap w!! w !sudo tee > /dev/null %
 
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre *.py :! touch ~/django/wwu_housing/wsgi.py
 autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window " . expand("%"))
-autocmd VimLeavePre * call system("tmux rename-window bash")
+autocmd VimLeavePre * call system("tmux rename-window " . hostname())
 
 
 noremap <C-S> :update<CR>
@@ -90,10 +89,6 @@ let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
 
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 set shortmess=a
 set cmdheight=1
 set laststatus=2
