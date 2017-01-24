@@ -108,3 +108,39 @@ EDITOR=vim; export EDITOR
 #Prevent terminal/tty from disruptions caused by Ctrl-S and Ctrl-Q
 stty -ixon
 #. ~/temp/punishment.sh
+
+# (Python) pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+
+#This function will let us override the virtualenv requirment and use pip globally
+gpip(){
+    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+# Set workon home dir for virtualenvwrapper
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+#functions to enable and disable prov WIFI routing.
+provroute (){
+    sudo route add -net 170.173.72.0/24 10.221.32.3;
+    sudo route add -net 10.227.150.0/24 10.221.32.3;
+}
+provdelroute (){
+    sudo route delete -net 170.173.72.0/24 10.221.32.3;
+    sudo route delete -net 10.227.150.0/24 10.221.32.3;
+}
+provtoggle (){
+    provdelroute
+    provroute
+}
+
+title (){
+    echo -ne "\033]0;"$*"\007"
+}
+
+# Prevent accidental overwriting of files.
+# Use '-o' to disable
+# To bypass, use ">|"
+# Example: " ls /etc >| out.txt "
+set -o noclobber

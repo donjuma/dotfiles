@@ -31,10 +31,14 @@ else
 fi
 
 alias c="clear"
-alias l="ls -lah "
+alias l="ls -lahFG "
 alias t="tmux -2 attach"
 alias e="exit"
 alias v="vim"
 alias jb="ssh jumao@juicebox.restek.wwu.edu"
 alias tmux="tmux -2"
 alias vipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias temp="cd ~/working/temp && workon temp"
+alias lockscreen="pmset displaysleepnow"
+alias ip="curl ipinfo.io"
+alias serveme="python -m SimpleHTTPServer"
