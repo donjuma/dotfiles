@@ -2,6 +2,6 @@
 
 # when leaving the console clear the screen to increase privacy
 
-if [ "$SHLVL" = 1 ]; then
-    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+if [ "$SHLVL" = 1 ]; then                                                   # Check if your Shell Level is 1. which is the root shell level
+    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q              # If so, then clear the console if possible to increase privacy when logging out.
 fi

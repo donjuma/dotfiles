@@ -1,6 +1,21 @@
+platform='unknown'
+unamestr=`uname`
+
+if [[ "$unamestr" == 'Linux' ]]; then
+    platform='LINUX'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+    platform='BSD'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+    platform='OSX'
+fi
+
+
 test -f ~/.bashrc && source ~/.bashrc
 test -f ~/.profile && source ~/.profile
 test -f ~/.inputrc && source ~/.inputrc
+
+test -f ~/.bash_"$platform" && source ~/.bash_"$platform"
+
 
 # Set architecture flag
 export ARCHFLAGS="-arch x86_64"

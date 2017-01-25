@@ -1,44 +1,50 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
+##########################################################################
+###                                                                      ##
+###   This file is executed bu the command interpreter for login shells  ##
+###      This file is not read if .bash_profile or .bash_login exist     ##
+###                      Tue Jan 24 18:00:00 PST 2017                    ##
+###                                                                      ##
+###########################################################################
 
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+################################  USERS PATH    ##########################
+if [ -d "$HOME/bin" ] ; then                                                                        # If user has their own private bin directory, add it to their PATH
     PATH="$HOME/bin:$PATH"
 fi
 
 
-if [ $(id -u) -eq 0 ]
-then
-	export PS1="[1;31m\u[m@[1;32m\h[m: \w\n\\$ "
-else
+################################  SHELL PROMPT  ##########################
+if [ $(id -u) -ne 0 ]; then                                                                         # Check if we are running as root, if not the proceed....
 	#export PS1="\u@[1;32m\h[m: \w\`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'\`\n\\$ "
     export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\[$(tput setaf 7)\]: \w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\[$(tput setaf 5)\]\`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'\`\[$(tput setaf 7)\]\[$(tput sgr0)\]\n\\$ \[$(tput sgr0)\]"
+else                                                                                                # Else, if we are running as root, then do the following.....
+	export PS1="[1;31m\u[m@[1;32m\h[m: \w\n\\$ "
 fi
 
-alias c="clear"
-alias l="ls -lahFG "
-alias t="tmux -2 attach"
-alias e="exit"
-alias v="vim"
-alias jb="ssh jumao@juicebox.restek.wwu.edu"
-alias tmux="tmux -2"
-alias vipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
-alias temp="cd ~/working/temp && workon temp"
-alias lockscreen="pmset displaysleepnow"
-alias ip="curl ipinfo.io"
-alias serveme="python -m SimpleHTTPServer"
+
+################################  BASH ALIASES  ##########################
+alias c="clear"                                                                                     # Clear the terminal
+alias l="ls -lahFG "                                                                                # List the current dir, all files, human readable sizes, show type, show color
+alias t="tmux -2 attach"                                                                            # Attach to the last Tmux session with 256 color support enabled
+alias e="exit"                                                                                      # Issue an `exit` to the shell. Will either exit ssh session or exit window
+alias v="vim"                                                                                       # Open the Vim editor. If used with file, it will open file in Vim
+alias tmux="tmux -2"                                                                                # Start a new Tmux session with 256 color support enabled
+alias vipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"           # Start a python session and load IPython within it
+alias temp="cd ~/working/temp && workon temp"                                                       # Change to a temp directory and change to temp VirtualEnv
+alias ip="curl ipinfo.io"                                                                           # Curls the given site, which returns IP address and GeoLocation info
+alias servethis="python -m SimpleHTTPServer"                                                        # Starts a simple python webserver that serves the current directory on localhost:8000
+alias pypath='python -c "import sys; print sys.path" | tr "," "\n" | grep -v "egg"'                 # Prints out the python path without all of the .egg files
+alias pyclean='find . -name "*.pyc" - exec rm {} \; && find . -name "__pycache__" -exec rm {} \;'   # Cleans out the current dir from *.pyc and __pycache__ files
+
+
+
+#PROMPT_COMMAND="${PROMPT_COMMAND}; vEnvCheck"                                                 # PROMPT_COMMAND is executed before PS1. This will call a function to check for VirtualEnvs
+PROMPT_COMMAND="vEnvCheck"                                                 # PROMPT_COMMAND is executed before PS1. This will call a function to check for VirtualEnvs
+
+function vEnvCheck (){
+    if [ "$PWD" != "$MYOLDPWD" ]; then
+        MYOLDPWD="$PWD"
+        test -e .venv && workon `cat .venv`
+    fi
+}
+

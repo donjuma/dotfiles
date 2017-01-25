@@ -1,146 +1,89 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+#Executed by Bash for non-login shells
+##########################################################################
+##                                                                      ##
+##      This file is executed by Bash for non-login shells              ##
+##                 Tue Jan 24 17:45:00 PST 2017                         ##
+##                                                                      ##
+##########################################################################
 
-# If not running interactively, don't do anything
-[ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+################################ META OPTIONS      ##########################
+[ -z "$PS1" ] && return                                         # If not running interactively, don't do anything. Bash also sources this file for non-interactive remote shells.
+                                                                # If this file echos anything to stdout, this will break things like scp. So if not interactive, it's best to just quit.
+                                                                # http://unix.stackexchange.com/questions/257571/why-does-bashrc-check-whether-the-current-shell-is-interactive
 
-# append to the history file, don't overwrite it
-shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+################################ BASH OPTIONS      ##########################
+shopt -s histappend                                             # This tells Bash to append the history list to the history file at the end of a Bash session instead of overwriting the file.
+set -o noclobber                                                # This will prevent accidental overwriting of files. To bypass, use `>|`. As in: "ls /etc/* >| myExistingFile.txt"
+shopt -s checkwinsize                                           # If set, Bash checks the window size after each command and, if necessary, updates the values of LINES and COLUMNS.
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+################################  EXTERNAL OPTIONS ##########################
+stty -ixon                                                      # Prevent terminal/tty from disruptions caused by Ctrl-S and Ctrl-Q
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+################################  BASH EXTENSIONS  ##########################
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"    # Makes 'less' more friendly for non-text input files such as tar files, gzipped, graphical, etc...
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then       # Enable programmable completion features if present on the current machine.
     . /etc/bash_completion
 fi
 
-TERM=screen-256color; export TERM
-EDITOR=vim; export EDITOR
+################################  BASH VARIABLES   ##########################
+HISTCONTROL=ignoredups:ignorespace                              # Don't log duplocate commands or commands that start with a space in the history file
+HISTSIZE=1000                                                   # This is the number of lines/commands stored in memory in history list while the Bash session is ONGOING!
+HISTFILESIZE=2000                                               # This is the number of lines/commands allowed in history file at startup and end of Bash session!
 
-#Prevent terminal/tty from disruptions caused by Ctrl-S and Ctrl-Q
-stty -ixon
-#. ~/temp/punishment.sh
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then   # If in chrooted system, set debian_chroot variable to the chroot name. This can be used later, such as the prompt!
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
 
-# (Python) pip should only run if there is a virtualenv currently activated
-export PIP_REQUIRE_VIRTUALENV=true
 
-#This function will let us override the virtualenv requirment and use pip globally
-gpip(){
-    PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
+################################  ENVIORNMENT VARIABLES  ####################
+TERM=screen-256color                                            # Set the TERM variable to "screen-256color" to indicate it can support 256 color mode (Needed for 256 colors in Tmux/Screen)
+EDITOR=vim                                                      # Set the default editor to be Vim instead of Nano
+export PIP_REQUIRE_VIRTUALENV=true                              # (Python) pip should only run if there is a virtualenv currently activated (See helpful functions for overriding this!)
+export WORKON_HOME=~/.virtualenvs                               # Set `workon` home dir for virtualenvwrapper
+source /usr/local/bin/virtualenvwrapper.sh                      # Source the VirtualEnvWrapper script to enable its functionality
 
-# Set workon home dir for virtualenvwrapper
-export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+RED="\[\033[0;31m\]"											# Sets the RED variable to the bash escape sequence representing the color red
+PINK="\[\033[1;31m\]"											# Sets the PINK variable to the bash escape sequence representing the color pink
+YELLOW="\[\033[1;33m\]"											# Sets the YELLOW variable to the bash escape sequence representing the color yellow
+GREEN="\[\033[0;32m\]"											# Sets the GREEN variable to the bash escape sequence representing the color green
+LT_GREEN="\[\033[1;32m\]"										# Sets the LT_GREEN variable to the bash escape sequence representing the color light green
+BLUE="\[\033[0;34m\]"											# Sets the BLUE variable to the bash escape sequence representing the color blue
+WHITE="\[\033[1;37m\]"											# Sets the WHITE variable to the bash escape sequence representing the color white
+PURPLE="\[\033[1;35m\]"											# Sets the PURPLE variable to the bash escape sequence representing the color purple
+CYAN="\[\033[1;36m\]"											# Sets the CYAN variable to the bash escape sequence representing the color cyan
+BROWN="\[\033[0;33m\]"											# Sets the BROWN variable to the bash escape sequence representing the color brown
+COLOR_NONE="\[\033[0m\]"										# Sets the COLOR_NONE variable to the bash escape sequence representing no color
 
-#functions to enable and disable prov WIFI routing.
-provroute (){
-    sudo route add -net 170.173.72.0/24 10.221.32.3;
-    sudo route add -net 10.227.150.0/24 10.221.32.3;
-}
-provdelroute (){
-    sudo route delete -net 170.173.72.0/24 10.221.32.3;
-    sudo route delete -net 10.227.150.0/24 10.221.32.3;
-}
-provtoggle (){
-    provdelroute
-    provroute
-}
-
-title (){
+################################  HELPFUL FUNCTIONS  ########################
+title (){                                                       # Will set the Terminal App's window/tab title to the passed argument.
     echo -ne "\033]0;"$*"\007"
 }
 
-# Prevent accidental overwriting of files.
-# Use '-o' to disable
-# To bypass, use ">|"
-# Example: " ls /etc >| out.txt "
-set -o noclobber
+gpip(){                                                         # This function will let us override the pip virtualenv requirment and use pip globally (see Enviornment Variables)
+    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+extract () {													# This function will attempt to extract the contents of a known archive type
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1       ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           echo "don't know how to extract '$1'..." ;;
+       esac
+   else
+       echo "'$1' is not a valid file!"
+   fi
+ }
