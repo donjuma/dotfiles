@@ -1,0 +1,18 @@
+##########################################################################
+##                                                                      ##
+##      This file adds additional Bash configuration for Linux OS's     ##
+##                      Tue Jan 24 16:51:58 PST 2017                    ##
+##                                                                      ##
+##########################################################################
+
+################################  COLOR SUPPORT ##########################
+if [ -x /usr/bin/dircolors ]; then                                                          # If dircolors exists on system
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"   # Check for local configurations
+
+    alias ls='ls --color=auto'                                                              # Enable color mode for `ls` command
+    alias grep='grep --color=auto'                                                          # Enable color mode for `grep` command
+    alias egrep='egrep --color=auto'                                                        # Enable color mode for `egrep` command
+    alias fgrep='fgrep --color=auto'                                                        # Enable color mode for `fgrep` command
+fi
+
+

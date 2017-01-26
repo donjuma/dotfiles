@@ -1,0 +1,25 @@
+##########################################################################
+##                                                                      ##
+##      This file adds additional Bash configuration for Linux OS's     ##
+##                      Tue Jan 24 16:51:58 PST 2017                    ##
+##                                                                      ##
+##########################################################################
+
+################################  HELPFUL FUNCTIONS  #####################
+
+provroute (){                                                   # This function will route the providence.org
+    sudo route add -net 170.173.72.0/24 10.221.32.3;            # address block through the prov gateway (10.221.32.3)
+    sudo route add -net 10.227.150.0/24 10.221.32.3;            # which is on wifi instead of MSHN gateway through ethernet
+}
+provdelroute (){                                                # This function will remove the routing rule
+    sudo route delete -net 170.173.72.0/24 10.221.32.3;         # prov addresses through to prov gateway
+    sudo route delete -net 10.227.150.0/24 10.221.32.3;
+}
+provtoggle (){                                                  # This will simply toggle the functions since sometimes
+    provdelroute                                                # on Mac, the rules will get stuck and need to be removed
+    provroute                                                   # and then re-added. Such as when reconnecting to the WIFI
+}
+
+################################  BASH ALIASES  ##########################
+alias lockscreen="pmset displaysleepnow"
+
