@@ -22,4 +22,4 @@ provtoggle (){                                                  # This will simp
 
 ################################  BASH ALIASES  ##########################
 alias lockscreen="pmset displaysleepnow"
-
+alias lock="lockscreen"
