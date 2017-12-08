@@ -35,6 +35,7 @@ alias ip="curl ipinfo.io"                                                       
 alias servethis="python -m SimpleHTTPServer"                                                        # Starts a simple python webserver that serves the current directory on localhost:8000
 alias pypath='python -c "import sys; print sys.path" | tr "," "\n" | grep -v "egg"'                 # Prints out the python path without all of the .egg files
 alias pyclean='find . -name "*.pyc" - exec rm {} \; && find . -name "__pycache__" -exec rm {} \;'   # Cleans out the current dir from *.pyc and __pycache__ files
+alias reload='source ~/.bash_profile'                                                               # Will reload all bash/profile files to update current session
 
 
 
